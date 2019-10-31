@@ -1,0 +1,5 @@
+main.go
+Makefile
+*.sql
+test.js
+*.html

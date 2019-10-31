@@ -1,0 +1,63 @@
+# node-sqldef
+
+This is a simple node-wrapper around [sqldef](https://github.com/k0kubun/sqldef), which I highly recommend as a CLI tool to do this stuff. 
+
+The basic idea is that you can keep a plain SQL file that desribes the current database, and migrate back and forth. Using git, you can migrate the existing database to whatever the current structure is in the checkout.
+
+It's compiled to WebAssembly, so you can use it in a browser or node without having to compile it, yourself. It works with MySQL or PostgreSQL.
+
+## usage
+
+```js
+const { promisify } = require('util')
+const sqldiff = require('sqldef')
+
+const readFile = promisify(require('fs').readFile)
+const exec = promisify(require('child_process').exec)
+
+const main = async () => {
+  const target = (await readFile('schema.sql')).toString()
+  const current = await exec('pg_dump --username=<USER> <DATABASE>')
+  console.log(await sqldiff('postgres', current, target))
+}
+main()
+```
+
+You can also use it in a web-browser.
+
+## CLI
+
+You can also use the node-CLI (especially good for npm `script` lines.) It has mostly the same options as [sqldef](https://github.com/k0kubun/sqldef)'s CLI. You can install it globally (to put `sqldef` in your path) or run `npx sqldef`, to run it without installing it.
+
+```
+Usage:
+  sqldef [options] db_name
+
+Application Options:
+  -t, --type                 Type of database: postgres or mysql (default: postgres)
+  -u, --user=user_name       User name (default: root)
+  -p, --password=password    User password, overridden by $MYSQL_PWD/$PGPASSWORD
+  -h, --host=host_name       Host to connect to the SQL server (default: 127.0.0.1)
+  -P, --port=port_num        Port used for the connection (default: 3306)
+  -S, --socket=socket        The socket file to use for connection
+      --password-prompt      Force user password prompt
+      --file=sql_file        Read schema SQL from the file, rather than stdin (default: -)
+      --dry-run              Don't run DDLs but just show them
+      --export               Just dump the current schema to stdout
+      --skip-drop            Skip destructive changes such as DROP
+      --help                 Show this help
+```
+
+```bash
+# export
+sqldef test --export > schema.sql
+
+# edit schema.sql how you like
+
+# import
+sqldef test --dry-run < schema.sql
+```
+
+## credit
+
+Most of the credit goes to @k0kubun. They made the awesome diffing lib, I just wrapped it with a nice node lib, CLI & database client.

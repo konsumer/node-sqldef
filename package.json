@@ -1,0 +1,25 @@
+{
+  "name": "sqldef",
+  "version": "0.0.0",
+  "description": "This is a simple node-wrapper around sqldef.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "serve build/js-wasm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konsumer/node-sqldef.git"
+  },
+  "keywords": [],
+  "author": "David Konsumer <konsumer@jetboystudio.com> (http://konsumer.js.org)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/konsumer/node-sqldef/issues"
+  },
+  "homepage": "https://github.com/konsumer/node-sqldef#readme",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "serve": "^11.2.0"
+  }
+}
