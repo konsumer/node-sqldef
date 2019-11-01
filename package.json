@@ -11,7 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/konsumer/node-sqldef.git"
   },
-  "keywords": ["migration", "migrate", "diff", "mysql", "postgres", "postgresql"],
+  "keywords": [
+    "migration",
+    "migrate",
+    "diff",
+    "mysql",
+    "postgres",
+    "postgresql"
+  ],
   "author": "David Konsumer <konsumer@jetboystudio.com> (http://konsumer.js.org)",
   "license": "MIT",
   "bugs": {
@@ -23,7 +30,7 @@
     "serve": "^11.2.0"
   },
   "bin": {
-    "sqldef": "sqldef"
+    "sqldef": "sqldef.js"
   },
   "dependencies": {
     "argparse": "^1.0.10"

@@ -3,7 +3,7 @@
 const sqldef = require('./')
 
 describe('sqldef', () => {
-  it('should have unit-tests', () => {
-    expect(1 + 1).toBe(2)
+  it('should be able to do a basic diff', async () => {
+    expect(await sqldef('postgres', 'A', 'B')).toBe('postgres')
   })
 })

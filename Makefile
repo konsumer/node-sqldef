@@ -8,13 +8,14 @@ BUILD_DIR=build/$(GOOS)-$(GOARCH)
 
 all: build
 
-build: deps
+build:
 	mkdir -p $(BUILD_DIR)
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build $(GOFLAGS) -o $(BUILD_DIR)/sqldef.wasm
+	GOOS=$(GOOS) GOARCH=$(GOARCH) go build $(GOFLAGS) -o $(BUILD_DIR)/sqldef.wasm node-sqldef.go
+	cp ${GOROOT}/misc/wasm/wasm_exec.js $(BUILD_DIR)
 
 clean:
 	rm -rf build package
 
 deps:
-	go get -t ./...
+	go get
 

@@ -15,8 +15,10 @@ if (WebAssembly) {
   }
 
   const go = new Go()
-  WebAssembly.instantiateStreaming(fetch('sqldef.wasm'), go.importObject).then((result) => {
-    go.run(result.instance)
+  WebAssembly.instantiateStreaming(fetch('sqldef.wasm'), go.importObject).then(async (result) => {
+    await go.run(result.instance)
+    console.log(_SQLDEF('A', 'B', 'C'))
+    console.log('_SQLDEF', _SQLDEF)
   })
 } else {
   console.log('WebAssembly is not supported in your browser')
