@@ -8,7 +8,7 @@
     "start": "serve build/js-wasm",
     "build": "make",
     "prepublishOnly": "make",
-    "clean-source": "rimraf build README.md Makefile index.js test.js *.go *.json .npmignore",
+    "clean-source": "rimraf build README.md Makefile index.js test.js *.go *.json .npmignore .gitignore",
     "deploy": "gh-pages-deploy"
   },
   "repository": {
