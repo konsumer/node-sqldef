@@ -68,8 +68,16 @@ sqldef test --export > schema.sql
 
 # edit schema.sql how you like
 
-# import
+# show import
 sqldef test --dry-run < schema.sql
+
+# bash confirm & do update
+echo "Do you wish to make these changes?"
+select yn in "Yes" "No"
+case $yn in
+    Yes ) sqldef test < schema.sql;;
+    No ) exit;;
+esac
 ```
 
 ## TODO
