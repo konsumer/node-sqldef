@@ -21,15 +21,20 @@ parser.addArgument(['--file'], { help: 'Read schema SQL from the file, rather th
 parser.addArgument(['--dry-run'], { help: "Don't run DDLs but just show them", nargs: 0 })
 parser.addArgument(['--export'], { help: 'Just dump the current schema to stdout', nargs: 0 })
 parser.addArgument(['--skip-drop'], { help: 'Skip destructive changes such as DROP', nargs: 0 })
+parser.addArgument(['DB_NAME'], { help: 'Your database name', nargs: 1 })
 
 const run = async () => {
   const args = parser.parseArgs()
+
+  // clean up, normalize & default args
   args.password = args.password || args.type === 'postgres' ? process.env.PGPASSWORD : process.env.MYSQL_PWD
   args.port = args.port || args.type === 'postgres' ? 5432 : 3306
   args.password_prompt = !!args.password_prompt
   args.dry_run = !!args.dry_run
   args.export = !!args.export
   args.skip_drop = !!args.skip_drop
+  args.db_name = args.DB_NAME[0]
+  delete args.DB_NAME
 
   if (args.password_prompt) {
     const prompt = new Prompt({

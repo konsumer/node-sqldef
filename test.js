@@ -23,8 +23,18 @@ describe('sqldef', () => {
       expect(await sqldef('mysql', current, target)).toBe('ALTER TABLE user DROP COLUMN created_at')
     })
 
-    it.skip('should be able to do a single-field additive diff', async () => {
-      expect(await sqldef('mysql', target, current)).toBe('ALTER TABLE user DROP COLUMN created_at')
+    it('should be able to do a single-field subtractive diff', async () => {
+      expect(await sqldef('mysql', current, target)).toBe('ALTER TABLE user DROP COLUMN created_at')
+    })
+  })
+
+  describe('postgres', () => {
+    it('should be able to do a single-field subtractive diff', async () => {
+      expect(await sqldef('postgres', current, target)).toBe('ALTER TABLE user DROP COLUMN created_at')
+    })
+
+    it('should be able to do a single-field subtractive diff', async () => {
+      expect(await sqldef('postgres', current, target)).toBe('ALTER TABLE user DROP COLUMN created_at')
     })
   })
 })

@@ -32,12 +32,15 @@ You can also use it in a web-browser, if you include `wasm_exec.js` & `sqldef_br
 You can also use the node-CLI (especially good for npm `script` lines.) It has mostly the same options as [sqldef](https://github.com/k0kubun/sqldef)'s CLI. You can install it globally (to put `sqldef` in your path) or run `npx sqldef`, to run it without installing it.
 
 ```
-usage: sqldef [-h] [-v] [-t {postgres,mysql}] [-u USER] [-p PASSWORD]
-              [-H HOST] [-P PORT] [-S SOCKET] [--password-prompt]
-              [--file FILE] [--dry-run] [--export] [--skip-drop]
-              
+usage: sqldef    [-h] [-v] [-t {postgres,mysql}] [-u USER] [-p PASSWORD]
+                 [-H HOST] [-P PORT] [-S SOCKET] [--password-prompt]
+                 [--file FILE] [--dry-run] [--export] [--skip-drop]
+                 DB_NAME
 
 Track SQL migration directly from your database
+
+Positional arguments:
+  DB_NAME               Your database name
 
 Optional arguments:
   -h, --help            Show this help message and exit.
@@ -53,8 +56,7 @@ Optional arguments:
   -S SOCKET, --socket SOCKET
                         The socket file to use for connection
   --password-prompt     Force user password prompt
-  --file FILE           Read schema SQL from the file, rather than stdin 
-                        (default: -)
+  --file FILE           Read schema SQL from the file, rather than stdin
   --dry-run             Don't run DDLs but just show them
   --export              Just dump the current schema to stdout
   --skip-drop           Skip destructive changes such as DROP
@@ -73,7 +75,7 @@ sqldef test --dry-run < schema.sql
 ## TODO
 
 * Need to actually add parsing/sql-clients to the CLI
-* Contribute more database-type parsing to sqldef (sqlite would be cool)
+* Contribute more database-type parsing to sqldef (sqlite would be cool.) Does db-type even matter for just parsing?
 * throws errors on some diffs.
 * the wasm-size is pretty big (4MB!)
 
