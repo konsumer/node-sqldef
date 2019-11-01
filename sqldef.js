@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const ArgumentParser = require('argparse').ArgumentParser
 const { version, description } = require('./package.json')
 const Prompt = require('prompt-password')
@@ -16,7 +17,7 @@ parser.addArgument(['-H', '--host'], { help: 'Host used for connection', default
 parser.addArgument(['-P', '--port'], { help: 'Port used for the connection: defaults to default-port for type' })
 parser.addArgument(['-S', '--socket'], { help: 'The socket file to use for connection' })
 parser.addArgument(['--password-prompt'], { help: 'Force user password prompt', nargs: 0 })
-parser.addArgument(['--file'], { help: 'Read schema SQL from the file, rather than stdin (default: -)' })
+parser.addArgument(['--file'], { help: 'Read schema SQL from the file, rather than stdin', defaultValue: '-' })
 parser.addArgument(['--dry-run'], { help: "Don't run DDLs but just show them", nargs: 0 })
 parser.addArgument(['--export'], { help: 'Just dump the current schema to stdout', nargs: 0 })
 parser.addArgument(['--skip-drop'], { help: 'Skip destructive changes such as DROP', nargs: 0 })
@@ -24,7 +25,7 @@ parser.addArgument(['--skip-drop'], { help: 'Skip destructive changes such as DR
 const run = async () => {
   const args = parser.parseArgs()
   args.password = args.password || args.type === 'postgres' ? process.env.PGPASSWORD : process.env.MYSQL_PWD
-  args.port = args.type === 'postgres' ? 5432 : 3306
+  args.port = args.port || args.type === 'postgres' ? 5432 : 3306
   args.password_prompt = !!args.password_prompt
   args.dry_run = !!args.dry_run
   args.export = !!args.export

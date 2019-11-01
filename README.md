@@ -68,6 +68,11 @@ sqldef test --export > schema.sql
 sqldef test --dry-run < schema.sql
 ```
 
+## TODO
+
+* Need to actually add parsing/sql-clients to the CLI
+* Contribute more database-type parsing to sqldef (sqlite would be cool)
+
 ## credit
 
 Most of the credit goes to @k0kubun. They made the awesome diffing lib, I just wrapped it with a nice node lib, CLI & database client.
