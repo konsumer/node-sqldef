@@ -8,7 +8,7 @@
     "start": "serve build/js-wasm",
     "build": "make",
     "prepublishOnly": "make",
-    "clean-source": "rimraf build README.md Makefile *.js *.go .npmignore",
+    "clean-source": "rimraf build README.md Makefile index.js test.js *.go *.json .npmignore",
     "deploy": "gh-pages-deploy"
   },
   "repository": {
@@ -43,7 +43,7 @@
     "prompt-password": "^1.2.0"
   },
   "gh-pages-deploy": {
-    "staticpath": "build",
+    "staticpath": "build/js-wasm",
     "prep": [
       "build"
     ],
