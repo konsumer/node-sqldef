@@ -1,17 +1,17 @@
 package main
  
 import (
-    "fmt"
-    "syscall/js"
+  "syscall/js"
 )
  
 func diff(this js.Value, args []js.Value) interface{} {
 	dbType := args[0].String()
 	sqlA := args[1].String()
 	sqlB := args[2].String()
-	fmt.Println("Hello ", dbType, sqlA, sqlB)
-
-	return dbType
+	callback := args[3]
+	out := dbType + sqlA + sqlB
+	callback.Invoke(js.Null(), out)
+	return true
 }
  
 func main() {

@@ -8,8 +8,14 @@ const sqldef = async (targetSrc, currentSrc) => {
   const go = new Go()
   const r = await WebAssembly.instantiate(blob, go.importObject)
   go.run(r.instance)
-  console.log(_SQLDEF)
-  return _SQLDEF('A', 'B', 'C')
+  return new Promise((resolve, reject) => {
+    _SQLDEF('postgres', 'B', 'C', (err, ret) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve(ret)
+    })
+  })
 }
 
 module.exports = sqldef
