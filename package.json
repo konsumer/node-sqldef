@@ -1,7 +1,7 @@
 {
   "name": "sqldef",
   "version": "0.0.0",
-  "description": "This is a simple node-wrapper around sqldef.",
+  "description": "Track SQL migration directly from your database",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/konsumer/node-sqldef.git"
   },
-  "keywords": [],
+  "keywords": ["migration", "migrate", "diff", "mysql", "postgres", "postgresql"],
   "author": "David Konsumer <konsumer@jetboystudio.com> (http://konsumer.js.org)",
   "license": "MIT",
   "bugs": {
@@ -21,5 +21,11 @@
   "devDependencies": {
     "jest": "^24.9.0",
     "serve": "^11.2.0"
+  },
+  "bin": {
+    "sqldef": "sqldef"
+  },
+  "dependencies": {
+    "argparse": "^1.0.10"
   }
 }

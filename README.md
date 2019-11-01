@@ -10,7 +10,7 @@ It's compiled to WebAssembly, so you can use it in a browser or node without hav
 
 ```js
 const { promisify } = require('util')
-const sqldiff = require('sqldef')
+const sqldef = require('sqldef')
 
 const readFile = promisify(require('fs').readFile)
 const exec = promisify(require('child_process').exec)
@@ -18,7 +18,7 @@ const exec = promisify(require('child_process').exec)
 const main = async () => {
   const target = (await readFile('schema.sql')).toString()
   const current = await exec('pg_dump --username=<USER> <DATABASE>')
-  console.log(await sqldiff('postgres', current, target))
+  console.log(await sqldef('postgres', current, target))
 }
 main()
 ```
@@ -30,22 +30,32 @@ You can also use it in a web-browser.
 You can also use the node-CLI (especially good for npm `script` lines.) It has mostly the same options as [sqldef](https://github.com/k0kubun/sqldef)'s CLI. You can install it globally (to put `sqldef` in your path) or run `npx sqldef`, to run it without installing it.
 
 ```
-Usage:
-  sqldef [options] db_name
+usage: sqldef [-h] [-v] [-t {postgres,mysql}] [-u USER] [-p PASSWORD]
+              [-H HOST] [-P PORT] [-S SOCKET] [--password-prompt]
+              [--file FILE] [--dry-run] [--export] [--skip-drop]
+              
 
-Application Options:
-  -t, --type                 Type of database: postgres or mysql (default: postgres)
-  -u, --user=user_name       User name (default: root)
-  -p, --password=password    User password, overridden by $MYSQL_PWD/$PGPASSWORD
-  -h, --host=host_name       Host to connect to the SQL server (default: 127.0.0.1)
-  -P, --port=port_num        Port used for the connection (default: 3306)
-  -S, --socket=socket        The socket file to use for connection
-      --password-prompt      Force user password prompt
-      --file=sql_file        Read schema SQL from the file, rather than stdin (default: -)
-      --dry-run              Don't run DDLs but just show them
-      --export               Just dump the current schema to stdout
-      --skip-drop            Skip destructive changes such as DROP
-      --help                 Show this help
+Track SQL migration directly from your database
+
+Optional arguments:
+  -h, --help            Show this help message and exit.
+  -v, --version         Show program's version number and exit.
+  -t {postgres,mysql}, --type {postgres,mysql}
+                        Type of database
+  -u USER, --user USER  User name
+  -p PASSWORD, --password PASSWORD
+                        User password, overridden by $MYSQL_PWD/$PGPASSWORD
+  -H HOST, --host HOST  Host used for connection
+  -P PORT, --port PORT  Port used for the connection: defaults to 
+                        default-port for type
+  -S SOCKET, --socket SOCKET
+                        The socket file to use for connection
+  --password-prompt     Force user password prompt
+  --file FILE           Read schema SQL from the file, rather than stdin 
+                        (default: -)
+  --dry-run             Don't run DDLs but just show them
+  --export              Just dump the current schema to stdout
+  --skip-drop           Skip destructive changes such as DROP
 ```
 
 ```bash
