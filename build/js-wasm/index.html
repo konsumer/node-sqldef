@@ -3,30 +3,68 @@
   <head>
     <meta charset="utf-8">
     <script src="wasm_exec.js"></script>
-<script>
-/* global WebAssembly, fetch, Go */
-if (WebAssembly) {
-  // WebAssembly.instantiateStreaming is not currently available in Safari
-  if (WebAssembly && !WebAssembly.instantiateStreaming) { // polyfill
-    WebAssembly.instantiateStreaming = async (resp, importObject) => {
-      const source = await (await resp).arrayBuffer()
-      return WebAssembly.instantiate(source, importObject)
-    }
-  }
-
-  const go = new Go()
-  WebAssembly.instantiateStreaming(fetch('sqldef.wasm'), go.importObject).then(async (result) => {
-    await go.run(result.instance)
-    console.log(_SQLDEF('A', 'B', 'C'))
-    console.log('_SQLDEF', _SQLDEF)
-  })
-} else {
-  console.log('WebAssembly is not supported in your browser')
-}
-</script>
+    <script src="sqldef_browser.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        width: 960px;
+        margin: 20px auto;
+        color: #fff;
+        background: #000;
+      }
+      textarea, pre {
+        border: 1px solid #000;
+        background: #eee;
+        color: #000;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      pre {
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <main id="wasm"></main>
-    <p>Check the console for <code>fmt.Println</code>.</p>
+    <p>You can diff these 2 schemas:</p>
+
+<textarea id="inputA" rows="10">
+CREATE TABLE user (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(128) DEFAULT 'konsumer'
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4;
+</textarea>
+
+<textarea id="inputB" rows="10">
+CREATE TABLE user (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(128) DEFAULT 'konsumer',
+  created_at DATETIME NOT NULL
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4;
+</textarea>
+    <div>
+      <select id="dbType">
+        <option value="mysql">MySQL</option>
+        <option value="postgres">PostgreSQL</option>
+      </select>
+      <button id="buttonDiff">DIFF</button>
+    </div>
+    <pre id="output"></pre>
   </body>
+
+<script>
+
+const button = document.getElementById('buttonDiff')
+const dbType = document.getElementById('dbType')
+const inputA = document.getElementById('inputA')
+const inputB = document.getElementById('inputB')
+const output = document.getElementById('output')
+
+button.addEventListener('click', async () => {
+  output.style.display = 'none'
+  output.innerHTML = await window.sqldef(dbType.value, inputB.value, inputA.value)
+  output.style.display = 'block'
+})
+</script>
+
 </html>

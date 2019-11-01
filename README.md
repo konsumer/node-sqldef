@@ -4,7 +4,7 @@ This is a simple node-wrapper around [sqldef](https://github.com/k0kubun/sqldef)
 
 The basic idea is that you can keep a plain SQL file that desribes the current database, and migrate back and forth. Using git, you can migrate the existing database to whatever the current structure is in the checkout.
 
-It's compiled to WebAssembly, so you can use it in a browser or node without having to compile it, yourself. It works with MySQL or PostgreSQL.
+It's compiled to WebAssembly, so you can use it in a browser, node, or [any other supported language](https://github.com/wasmerio/wasmer) without having to compile it, yourself. It works with MySQL or PostgreSQL schemas.
 
 ## usage
 
@@ -23,7 +23,7 @@ const main = async () => {
 main()
 ```
 
-You can also use it in a web-browser.
+You can also use it in a web-browser, if you include `wasm_exec.js` & `sqldef_browser.js`. See [example](./build/js-wasm/index.html).
 
 ## CLI
 

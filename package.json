@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "serve build/js-wasm"
+    "start": "serve build/js-wasm",
+    "build": "make",
+    "prepublishOnly": "make",
+    "clean-source": "rimraf build README.md Makefile *.js *.go .npmignore",
+    "deploy": "gh-pages-deploy"
   },
   "repository": {
     "type": "git",
@@ -26,7 +30,9 @@
   },
   "homepage": "https://github.com/konsumer/node-sqldef#readme",
   "devDependencies": {
+    "gh-pages-deploy": "^0.5.1",
     "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
     "serve": "^11.2.0"
   },
   "bin": {
@@ -35,5 +41,15 @@
   "dependencies": {
     "argparse": "^1.0.10",
     "prompt-password": "^1.2.0"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "build",
+    "prep": [
+      "build"
+    ],
+    "post": [
+      "clean-source"
+    ],
+    "noprompt": true
   }
 }
