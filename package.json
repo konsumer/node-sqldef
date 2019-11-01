@@ -33,6 +33,7 @@
     "sqldef": "sqldef.js"
   },
   "dependencies": {
-    "argparse": "^1.0.10"
+    "argparse": "^1.0.10",
+    "prompt-password": "^1.2.0"
   }
 }

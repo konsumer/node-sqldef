@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const ArgumentParser = require('argparse').ArgumentParser
 const { version, description } = require('./package.json')
+const Prompt = require('prompt-password')
 
 var parser = new ArgumentParser({
   version,
@@ -20,12 +21,23 @@ parser.addArgument(['--dry-run'], { help: "Don't run DDLs but just show them", n
 parser.addArgument(['--export'], { help: 'Just dump the current schema to stdout', nargs: 0 })
 parser.addArgument(['--skip-drop'], { help: 'Skip destructive changes such as DROP', nargs: 0 })
 
-const args = parser.parseArgs()
-args.password = args.password || args.type === 'postgres' ? process.env.PGPASSWORD : process.env.MYSQL_PWD
-args.port = args.type === 'postgres' ? 5432 : 3306
-args.password_prompt = !!args.password_prompt
-args.dry_run = !!args.dry_run
-args.export = !!args.export
-args.skip_drop = !!args.skip_drop
+const run = async () => {
+  const args = parser.parseArgs()
+  args.password = args.password || args.type === 'postgres' ? process.env.PGPASSWORD : process.env.MYSQL_PWD
+  args.port = args.type === 'postgres' ? 5432 : 3306
+  args.password_prompt = !!args.password_prompt
+  args.dry_run = !!args.dry_run
+  args.export = !!args.export
+  args.skip_drop = !!args.skip_drop
 
-console.dir(args)
+  if (args.password_prompt) {
+    const prompt = new Prompt({
+      message: 'Enter your password please'
+    })
+    args.password = await prompt.run()
+  }
+
+  console.log('TODO: not done yet, but here are your options:')
+  console.dir(args)
+}
+run()
