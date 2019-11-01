@@ -74,6 +74,8 @@ sqldef test --dry-run < schema.sql
 
 * Need to actually add parsing/sql-clients to the CLI
 * Contribute more database-type parsing to sqldef (sqlite would be cool)
+* throws errors on some diffs.
+* the wasm-size is pretty big (4MB!)
 
 ## credit
 
