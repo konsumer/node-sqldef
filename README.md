@@ -2,7 +2,7 @@
 
 This is a simple node-wrapper around [sqldef](https://github.com/k0kubun/sqldef), which I highly recommend as a CLI tool to do this stuff. 
 
-> See a demo [here](http://konsumer.js.org/node-sqlde)!
+> See a demo [here](http://konsumer.js.org/node-sqldef/)!
 
 The basic idea is that you can keep a plain SQL file that desribes the current database, and migrate back and forth. Using git, you can migrate the existing database to whatever the current structure is in the checkout.
 
