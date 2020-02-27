@@ -86,7 +86,8 @@ esac
 * Contribute more database-type parsing to sqldef (sqlite would be cool.) Does db-type even matter for just parsing?
 * throws errors on some diffs.
 * the wasm-size is pretty big (4MB!)
+* Keep CLI DDL-only? (with recipes for dumping pg/mysql piped into it.) I could see htis making it more generally useful and easy to maintain.
 
 ## credit
 
-Most of the credit goes to @k0kubun. They made the awesome diffing lib, I just wrapped it with a nice node lib, CLI & database client.
+Most of the credit goes to @k0kubun. They made the awesome diffing lib, I just compiled a loader to wasm, wrapped it with a node lib, & CLI
