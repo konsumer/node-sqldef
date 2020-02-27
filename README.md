@@ -87,6 +87,7 @@ esac
 * throws errors on some diffs.
 * the wasm-size is pretty big (4MB!)
 * Keep CLI DDL-only? (with recipes for dumping pg/mysql piped into it.) I could see htis making it more generally useful and easy to maintain.
+* Strip all the database-client stuff out of a copy of sqldef, to make it lighter for wasm/node
 
 ## credit
 
